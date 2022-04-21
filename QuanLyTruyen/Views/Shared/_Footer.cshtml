@@ -1,0 +1,55 @@
+﻿<link href="~/Content/style.css" rel="stylesheet" />
+
+<div class="footer row">
+    <div class="footer-item col-lg-6 col-md-12">
+        <h2>
+            SOUTH CENTER TEAM - Translation + Tech Support + Gaming + More...
+        </h2>
+        <p>Discord Server: <a style="text-decoration: none; color: lightgoldenrodyellow" href="https://discord.gg/zTcBPsCcR2">SouthCenter Team</a></p>
+        <p>Facebook: <a style="text-decoration: none; color: lightgoldenrodyellow" href="https://www.facebook.com/SouthCenterITScanTeam/">SouthCenter Team</a></p>
+        <p>Email: <a style="text-decoration: none; color: lightgoldenrodyellow" href="mailto:southcenterteam@gmail.com?subject= Hello SouthCenter Team">southcenterteam@gmail.com</a></p>
+       @if (!((Session["ID"] != null) && (Session["ID"].ToString() == QuanLyTruyen.Models.Methods.Instance.SHA256(Session["userName"].ToString()))))
+        {
+            <text>
+                <h3>
+                    Contact us via Discord or Facebook to get your account now
+                </h3>
+            </text>
+        }
+    </div>
+    <div class="footer-item col-lg-3 col-md-6">
+        <h3>
+            Discord
+        </h3>
+        <iframe src="https://discord.com/widget?id=857458308427677727&theme=dark" width="275" height="175" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+        </iframe>
+    </div>
+    <div class="footer-item col-lg-3 col-md-6">
+        <h3>
+            Facebook
+        </h3>
+        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FSouthCenterITScanTeam&tabs=timeline&width=275&height=175&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId"
+                width="275" height="175" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+        </iframe>
+    </div>
+</div>
+<div class="ban-quyen">
+    © Thiết kế bởi SouthCenter Team | <span id="time"></span>
+</div>
+<script>
+    function timer() {
+        var d = new Date();
+        document.getElementById("time").innerHTML = d.toLocaleDateString() + " - " + d.toLocaleTimeString();
+    }
+
+    setInterval(timer, 1000);
+    onload(timer);
+
+</script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="js/app.js"></script>

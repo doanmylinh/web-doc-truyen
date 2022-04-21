@@ -1,0 +1,87 @@
+﻿@model QuanLyTruyen.Models.Series
+@{
+    ViewBag.Title = Model.Novel.NovelName;
+}
+
+<div class="row">
+    <div class="col-lg-11">
+        <div align="center"><h2>@Model.Novel.NovelName</h2></div>
+        <div align="center">
+            <img src="data:image;base64,@System.Convert.ToBase64String(QuanLyTruyen.Models.Methods.Instance.GetNovelImageArray(Model.Novel))" style="max-width: 50%;" />
+        </div>        
+        <blockquote>
+            <details onclick="changeCaret()">
+                <summary><b id="synopsisTitle"><span class="glyphicon glyphicon-triangle-right"></span></b>&ensp;<strong id="summ">Summary (click to show): </strong></summary>
+                <blockquote>
+                    <p style="white-space: pre-line">
+                        @Model.Novel.Synopsis
+                    </p>
+                </blockquote>
+            </details>
+            <script>
+                function changeCaret() {
+                    if (document.getElementById("synopsisTitle").innerHTML == '<span class="glyphicon glyphicon-triangle-right"></span>') {
+                        document.getElementById("synopsisTitle").innerHTML = '<span class="glyphicon glyphicon-triangle-bottom"></span>';
+                        document.getElementById("summ").innerHTML = 'Summary (click to hide): ';
+                    }
+                    else {
+                        document.getElementById("synopsisTitle").innerHTML = '<span class="glyphicon glyphicon-triangle-right"></span>';
+                        document.getElementById("summ").innerHTML = 'Summary (click to show): ';
+                    }
+                }
+            </script>
+        </blockquote>
+        <div>
+            <strong>
+                <span class="glyphicon glyphicon-hourglass"></span>
+                &ensp; Trạng thái: &ensp;
+            </strong>
+            <span>
+               @if (Model.Novel.NovelStatus == 0)
+                {
+                    <text>Còn tiếp</text>
+                }
+                else
+                {
+                    <text>Đã xong</text>
+                }
+            </span>
+        </div>
+        <div>
+            <strong><span class="glyphicon glyphicon-tag"></span>&ensp;Tags: &ensp; </strong>
+            @foreach (var item in Model.listTag)
+            {
+                <span>@item.TagName ,&ensp;</span>
+            }
+        </div>
+        <div align="center">
+            <h3>Chapter List: </h3>
+           @foreach (var item in Model.listChap)
+            {
+                <p>
+                    @Html.ActionLink(item.ChapterName, "ViewChapter", "Home", new { id = item.ChapterID }, null)
+                </p>
+            }
+        </div>
+       @if (Session["ID"] != null && Session["ID"].ToString() == QuanLyTruyen.Models.Methods.Instance.SHA256(Session["userName"].ToString()))
+        {
+        <div align="center">
+            <hr />
+           @if (Model.Novel.NovelStatus == 0)
+            {
+                @Html.ActionLink("Thêm chương mới...", "NewChapter", "Home", new { }, new { @class = "btn btn-default" })
+            }
+            else
+            {
+                <a class="btn btn-default" href="">Truyện đã hoàn thành, không thể thêm chương mới</a>
+            }
+           @if (QuanLyTruyen.Models.Methods.Instance.GetMember(Session["userName"].ToString()).accounttype >= 1)
+            {
+               @Html.ActionLink("Đánh dấu hoàn thành", "FinishNovel", "Home", new { id = Model.Novel.NovelID }, new { @class = "btn btn-primary" })
+               <text>&ensp;</text>
+               @Html.ActionLink("Xóa Project này", "DeleteNovel", "Home", new { id = Model.Novel.NovelID }, new { @class = "btn btn-danger" })
+            }
+        </div>
+        }
+    </div>
+</div>

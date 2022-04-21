@@ -1,0 +1,66 @@
+﻿@model QuanLyTruyen.Models.PostedSeries
+@{
+    ViewBag.Title = "NewSeries";
+}
+<style>
+    tr td {
+        padding: 10px 10px 10px 10px;
+    }
+</style>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: '#NovelSynopsis'
+    });
+</script>
+<h2>Tạo Project Novel mới</h2>
+<div align="center">
+    @using (Html.BeginForm("NewSeries", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        <div style="padding: 10px; margin-top: 10px">
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.NovelName)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.NovelName)
+                        @Html.ValidationMessageFor(m => m.NovelName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(m => m.NovelCover)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.NovelCover, new { @type = "file", @accept = "image/png, image/gif, image/jpeg" })
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">@Html.LabelFor(m => m.NovelSelectTags)</td>
+                    <td>
+                        @for (int i = 0; i < Model.NovelSelectTags.Count(); i++)
+                        {
+                            @Html.CheckBoxFor(m => m.NovelSelectTags[i].Selected);
+                            @Html.DisplayFor(m => m.NovelSelectTags[i].Text)
+                            @Html.HiddenFor(m => m.NovelSelectTags[i].Value)
+                            @Html.HiddenFor(m => m.NovelSelectTags[i].Text)
+                            <br />
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        @Html.LabelFor(m => m.NovelSynopsis)
+                    </td>
+                    <td>
+                        <textarea id="NovelSynopsis" name="NovelSynopsis" rows="5" cols="70" style="resize: vertical"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" halign="center"><input type="submit" value="Tạo mới" /></td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,108 @@
+﻿ 
+@{
+    ViewBag.Title = "Login";
+}
+
+<script>
+    function Alerting() {
+        if (@ViewBag.alertMessage != null) {
+            alert(@ViewBag.alertMessage);
+        }
+    }
+    window.onload(Alerting())
+</script>
+<style>
+    body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #eee;
+    }
+
+    .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+
+        .form-signin .checkbox {
+            font-weight: normal;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+            .form-signin .form-control:focus {
+                z-index: 2;
+            }
+
+        .form-signin input[type="text"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+</style>
+
+
+<div class="container">
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-signin" }))
+    {
+        @Html.AntiForgeryToken();
+        <h2 class="form-signin-heading" align="center">Đăng nhập.</h2>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="" name="User">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" name="Pass">
+        
+            <div class="checkbox">
+            <label>
+                <input type="checkbox" onclick="showPass()"> Hiện mật khẩu
+            </label>
+            <script>
+                function showPass() {
+                    var x = document.getElementById("inputPassword");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                }
+            </script>
+            </div>
+        
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="true" name="remember"> Ghi nhớ đăng nhập
+            </label>
+        </div>
+
+        <h5 style="color: red">@ViewBag.Message</h5> <br />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    }
+    <div align="center">
+        Để nhận tài khoản vui lòng liên hệ thông qua
+        <a style="text-decoration: none; color: blue" href="https://discord.gg/zTcBPsCcR2">Discord</a>
+        hoặc
+        <a style="text-decoration: none; color: blue" href="https://www.facebook.com/SouthCenterITScanTeam/">Facebook</a>
+        <br />
+    </div>
+    <br />
+</div>
+

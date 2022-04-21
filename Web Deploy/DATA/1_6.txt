@@ -1,0 +1,69 @@
+
+                  
+                   
+fLogin
+fQuanLyTaiKhoan
+fForgotPassword
+fMain         
+ 
+go to jre/bin/sercurity/java.sercurity
+Right Click > Property
+Change Permission for Everyone
+open java.sercurity with notepad/notepad++
+go to line jdk.tls.disabledAlgorithms =
+Delete that line completely
+and you done
+
+========================
+HOW TO SETUP ENVIRONMENT
+========================
+You must install JDK 8.0 or higher and JRE 7.0 or higher installed on your 
+computer to run this program.
+To connect to database:
+1/ Install SQL Server Express 2014.
+2/ Go to Setup -> datasetup.cmd
+3/ Go to your JRE Folder (Usually in "Program Files\Java") get to the 
+   java.security file (in "lib\security"). Open it.
+4/ Change the line jdk.tls.disabledAlgorithms, delete SSLv3, TLSv1.0, TLSv1.1 in 
+   that line. Save it.
+   (If you can't, right click on java.security > properties > permission, set Everyone to 
+    Full Control)
+5/ You should be connected to your database right now. If not, contact us via
+   email : southcenterteam@gmail.com
+
+==========================
+HOW TO RUN THE APPLICATION
+==========================
+
+Simply run the .jar file
+                
+
+
+
+VMWare keyszz
+YY78A-4UGE2-481UZ-H5XEC-NA890
+FC59H-02EEK-080NY-G7ZEE-W3R82
+CA35A-4NGDL-488DZ-ZFQ5V-XC2XA
+FG78H-4MW55-480VZ-4YPGZ-P3KA0
+CY51K-FZX87-4819Z-MQWXV-QFRW4
+FC7R0-4MX5Q-H81CP-4DQ5G-ZP0EA
+ZG112-A6X4P-M81MP-7DPNT-ZZUR4
+GC5TK-8XE8K-48D7Z-6NQNV-XV09D
+GV7XK-D7Y9J-M84MQ-UWMZV-Q7U9A
+YU18K-A9W51-H81TQ-N4MZV-P68X6
+UZ3RR-0GYEQ-M84TQ-EPPGC-M6HG2
+VF35H-DGF8J-M8EZZ-QDPET-YAAU6
+UZ790-0QG4Q-088GZ-1MWNX-MKAZ4
+UY75R-DPY9J-M85QZ-GMYGZ-P38A2
+FC31H-88Y0N-4882Q-QGY7C-ZZHAD
+CV78H-0RG9H-M80JQ-W7WN9-N7KT0
+ZC302-0CG82-H8DWQ-MXZEG-PGUG0
+VZ1M2-0WW55-480WZ-TMZZC-ZGHV8
+YC3DU-6DD1K-48DPZ-KNNNX-PG8C4
+CZ1HH-4VD4J-M89VY-6QQ5Z-M7AWF
+
+
+
+
+
+	12:d2:a4:06:41:4b

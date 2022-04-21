@@ -1,0 +1,41 @@
+﻿@model List<QuanLyTruyen.Models.novel>
+@{
+    ViewBag.Title = "Search Result";
+}
+
+<h2>Kết quả tìm kiếm cho &quot;@ViewBag.searchtext &quot;: </h2>
+<style>
+    .vcenter {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+        
+    }
+</style>
+@foreach (var item in Model)
+ {
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-lg-6 col-xs-6 vcenter">
+                Tên: @item.NovelName <br />                
+                Trạng thái: 
+               @if (item.NovelStatus == 0)
+                {
+                    <text>Còn tiếp.</text>
+                }
+                else
+                {
+                    <text>Đã xong.</text>
+                }                
+                Tóm tắt truyện: @QuanLyTruyen.Models.Methods.Instance.LimitString(item.Synopsis, 50)
+            </div>
+            <div class="col-lg-2 col-xs-2 vcenter">
+                <p><img src="data:image;base64,@System.Convert.ToBase64String(QuanLyTruyen.Models.Methods.Instance.GetNovelImageArray(item))" style="max-width: 90px; max-height:135px" /></p>
+            </div>
+            <div class="col-lg-2 col-xs-2 vcenter">
+                @Html.ActionLink("Chuyển tới trang thông tin. >>>", "Series", "Home", new { id = item.NovelID}, new { @class = "btn btn-primary"})
+            </div>
+        </div>
+    </div>
+ }
+

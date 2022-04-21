@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "NewChapter";
+}
+@model QuanLyTruyen.Models.PostedChapter
+<h2 align="center">Insert New Chapter</h2>
+<style>
+    tr td {
+        padding: 8px;
+    }
+</style>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: '#textareas'
+    });
+</script>
+
+@using (Html.BeginForm("NewChapter", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    <div class="form-horizontal" align="center">
+        <hr />
+        <table>
+            <tr>
+                <td><label for="chapterName">Chapter Name: &ensp;</label></td>
+                <td><input type="text" id="name" name="chapterName" /></td>
+            </tr>
+            <tr>
+                <td><label for="selectNovel">Select novel: &ensp;</label></td>
+                <td>
+                    <select name="selectNovelID" size="7" id="selectNovel" class="dropdown">
+                        @foreach (var item in Model.ListNovel)
+                        {
+                            <option value=@item.NovelID> @QuanLyTruyen.Models.Methods.Instance.LimitString(@item.NovelName, 11)</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="Files">Select file: &ensp;</label></td>
+                <td><input type="file" name="Files" id="files" accept="text/plain" /></td>
+            </tr>
+            <tr>
+                <td><label for="textareas" >Or write the content:  &ensp;</label></td>
+                <td><textarea type="file" name="chapContent" id="textareas" rows="15"></textarea></td>
+            </tr>
+            <tr>
+                <td rowspan="2" align="center"><input type="submit" value="Create" class="btn btn-default" style="width: 95%" /></td>
+            </tr>
+        </table>
+    </div>
+}
+
+<div>
+    @ViewBag.Message
+    <br />
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SouthCenter Scanlation</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @{
+        Html.RenderAction("RenderMenu", "Home");
+    }
+    <div class="container body-content" style="min-height: 1000px">
+        <br />
+        @RenderBody()
+        <hr />
+    </div>
+    @{ 
+        Html.RenderAction("RenderFooter", "Home");
+    }
+
+    <button class="btn btn-default" onclick="scrollToTop()" id="ScrollTopBtn">&ensp;&uArr;&ensp;</button>
+    <style>
+        #ScrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: rgb(128 128 128 / 0.20);
+            color: white;
+            cursor: pointer;
+            padding: 7px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bolder;
+        }
+
+            #ScrollTopBtn:hover {
+                background-color: rgb(64 64 64 / 0.80);
+            }
+    </style>
+    <script type="text/javascript">
+        var btn = document.getElementById("ScrollTopBtn");
+        onscroll = function () {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        }
+        function scrollToTop() {
+            jQuery("html, body").animate({ scrollTop: 0 }, 600);
+        }
+    </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

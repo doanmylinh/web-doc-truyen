@@ -1,0 +1,96 @@
+﻿@using QuanLyTruyen.Models
+@model novelChapter
+
+@{
+    ViewBag.Title = Model.ChapterName + " - " + Model.novel.NovelName;
+}
+
+<style>
+    .text-container {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 21px;
+        text-align: justify;
+        padding-left: 50px;
+        padding-right: 50px;
+        white-space: pre-line;
+        user-select: none; 
+        -webkit-user-select: none; 
+        -moz-user-select: none; 
+        -ms-user-select: none; 
+    }
+</style>
+<div align="center">
+    <h2>@Model.novel.NovelName</h2><br />
+    <h4>@Model.ChapterName</h4><br />
+    <hr />
+    <div class="text-container">
+        @ViewBag.NovelBody
+    </div>
+    <hr />
+</div>
+<style>
+    .changeChapter {
+        padding: 14px 20px 14px 20px;
+        border-radius: 10px;
+        border: 2px solid #4CAF50;
+        width: 49.5%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 25px;
+        font-weight: bold;
+        color: floralwhite;
+    }
+</style>
+<div class="row" style="padding-top:1em">
+    <div class="col-md-12">
+        @if (Model.PrevID != null)
+        {
+            <button id="prevChapterButton" onclick="location.href='@Url.Action("ViewChapter", "Home", new { id = Model.PrevID }) '" class="changeChapter"
+                    style="background-color: #4CAF50">
+                <p>Previous Chapter</p>
+            </button>
+        }
+        else
+        {
+            <button id="prevChapterButton" class="changeChapter"
+                    style="background-color: #4CAF50">
+                <p>&ensp;</p>
+            </button>
+        }
+
+        @if (Model.NextID != null)
+        {
+            <button id="nextChapterButton" onclick="location.href='@Url.Action("ViewChapter", "Home", new { id = Model.NextID })'" class="changeChapter"
+                    style=" background-color: #0026ff">
+                <p>Next Chapter</p>
+            </button>
+        }
+        else
+        {
+            if (Model.novel.NovelStatus == 0)
+            {
+                <button id="nextChapterButton" class="changeChapter"
+                        style=" background-color: #0026ff">
+                    <p>Next Chapter coming soon</p>
+                </button>
+            }
+            else
+            {
+                <button id="nextChapterButton" class="changeChapter"
+                        style=" background-color: #0026ff">
+                    <p>&ensp;</p>
+                </button>
+            }
+        }
+    </div>
+</div>
+@if ((Session["ID"] != null) && (Session["ID"].ToString() == Methods.Instance.SHA256(Session["userName"].ToString())))
+{
+    <hr />
+    <div align="center">
+        @Html.ActionLink("Edit", "EditChapter", "Home", new { id = Model.ChapterID }, new { @class = "btn btn-default" })
+       @if (Methods.Instance.GetMember(Session["userName"].ToString()).accounttype.Value >= 1)
+        {
+            @Html.ActionLink("Delete", "DeleteChapter", "Home", new { id = Model.ChapterID }, new { @class = "btn btn-danger" })
+        }
+    </div>
+}

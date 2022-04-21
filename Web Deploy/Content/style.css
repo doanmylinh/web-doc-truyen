@@ -1,0 +1,320 @@
+.header {
+	background-color: floralwhite;
+	color: darkblue;
+}
+
+.header-img img{
+	width: 120px;
+	height: 120px;
+}
+
+.header-logo{
+	width: 80%;
+	justify-content: center;
+	margin: auto;
+	padding: 2rem 0;
+	color: white;
+	text-align: center;
+}
+
+.menu a{
+	color: #0f5197!important;
+	font-weight: 500;
+}
+
+.nav-link{
+	position: relative;
+}
+
+.nav-link::before{
+	content: "";
+	position: absolute;
+	bottom: 0;
+	background: #0a478e;
+	height: 3px;
+	width: 0px;
+	left: 0px;
+	transition: width .3s;
+}
+.nav-link:hover::before{
+	width: 100%;
+}
+
+#top{
+	position: fixed;
+	bottom: 50px;
+	right: 20px;
+	z-index: 99;
+	display:none;
+}
+
+
+.carousel-item img{
+	width: 100%;
+	height: 100%;
+}
+
+.mota{
+	margin: 0;
+	background-color: #0a478e;	
+}
+
+.mota-item:nth-child(2){
+	background-color: #00923f;
+}
+
+.mota-item{
+	text-align: center;
+	padding: 1.5rem 1rem;
+	overflow: hidden;
+}
+
+.mota-item a{
+	display:block;
+	text-decoration: none;
+	color: white;
+}
+
+.mota-item-title{
+	font-weight: 700;
+	font-size: 20px;
+}
+.mota-item-des{
+	font-weight: 500;
+}
+
+.mota-item::after{/*.Tạo hình trụ màu trắng*/
+	content: "";
+	position: absolute; /*.Cho phép di chuyển hình trụ*/
+	height: 300px;
+	width: 80px;
+	background: hsla(0,0%,100%,.25); /*.Tạo bóng cho hình trụ*/
+	left: -100%;/*.Cho hình trụ dời về phía trái*/
+	top: -60px;  /*.di chuyển hình trụ lên trên 60px*/
+	transform: rotate(25deg); /*Xoay hình trụ*/
+	transition: left .2s linear; /*hiệu ứng di chuyển hình trụ*/
+}
+.mota-item:hover::after{
+	left:130%;/*khi hover di chuyển trụ qua phải*/
+}
+
+.section{
+	padding: 2rem 5rem;
+	background-color: #f9f9f9;
+}
+
+.section-title{
+	font-size: 22px;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: #0f5197;
+	margin-bottom: 2rem;
+	position: relative; /* cho phép after và before có thẻ di chuyển tương quan với thẻ này */
+	flex-grow: 8; /*Kéo dãn 8 lần so với button xem tất cả*/
+}
+
+.section-title::after{
+	content: "";/* Bắt buộc phải có dù là rỗng*/
+	position: absolute; /* cho phép after có thẻ di chuyển so với .section-title*/
+	left: 0; /*Cách trái so với .section-title là 0. Có thể thử số khác để thấy*/
+	bottom: 0;
+	height: 2px;
+	border: 1px solid #ddd;
+	width: 100%;
+	z-index: 0; /*cho phép after nằm dưới before */
+}
+
+.section-title::before{
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 2px;
+	border: 1px solid #0f5197;
+	width: 30%;
+	z-index: 1; /* cho phép before đè lên after */
+}
+
+.card-image img{
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+.card-content{
+	background: rgba(10, 71, 142, 1);
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 600;
+	position: absolute;/*cho phép di chuyển so với .card*/
+	bottom: 0;/*Cho xuống dưới cùng*/
+	width: 100%;/*cho chiều dài 100%*/
+	min-height: 30px;/*cho chiều cao 30px*/
+	transition: all .2s ease-in-out;/*tạo hiệu ứng*/
+	/*Cho chữ nằm giữa theo chiều ngang và dọc*/
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card{
+	position: relative;/*cho phép các thành phần con có thể di chuyển tương quan với chính nó*/
+	margin-bottom: 2rem;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card:hover .card-content{
+	min-height: 100%; /*chiều cao 100% khi hover*/
+	background: rgba(10, 71, 142, 0.3);
+}
+
+.section-title-box{
+	display: flex;
+	justify-content: space-between;
+}
+
+.section-title-btn{
+	flex-grow: 1;
+	margin-bottom: 2rem;
+}
+
+.card-clock{
+	color: #737373;
+	font-size: 14px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid  #eee;
+}
+
+.card-new-btn{
+	opacity: 0.8; /* hơi mờ 1 tí*/
+	position: absolute; /*cho phép di chuyển bên trong .card*/
+	font-size: 12px;
+	top: 5px;
+	left: 5px;
+	font-weight: bold;
+}
+
+.co-so{
+	font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+}
+
+.lien-he{
+	margin-top: 15px;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.footer{
+	background-color: blue;
+	color: floralwhite;
+	padding: 2rem 4rem;
+	margin: 0;
+}
+
+.footer-item{
+	margin-bottom: 2rem;
+}
+
+.footer-item p{
+	margin:0;
+}
+
+.ban-quyen{
+	background-color: purple;
+	text-align: center;
+	padding:10px;
+	color: white;
+}
+
+.baiviet-tieude{
+    background-color: #0f5197;
+	min-height: 250px;
+	/*canh giữa theo chiều ngang và dọc*/
+    display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.baiviet-tieude h1{
+	color: #ddd;
+	font-size: 2rem;
+}
+
+.baiviet-body{
+	padding:0;
+	margin: 0;
+}
+
+.baiviet-content-left{
+	padding: 2rem;
+}
+
+.nd-lx{
+	color: #989898;
+	margin-bottom: 2rem;
+}
+
+.section-baiviet{
+	padding: 2rem 2rem 0.5rem 0;
+	background: #fff;
+}
+
+.section-baiviet-title{
+	font-size: 18px;
+	margin-bottom: 0.5rem;
+}
+
+.card-baiviet{
+	display: flex;
+	margin-bottom: 20px;
+	padding: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.section-baiviet a{
+	text-decoration: none;
+}
+
+.card-baiviet-img{
+	margin-right: 10px;
+	flex: 0 0 33.33%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card-baiviet-img img{
+	width: 100%;
+}
+
+.card-baiviet-content{
+	flex: 0 0 66.67%;
+}
+
+
+
+.card-baiviet-info{
+	font-size: 12px;
+	color: #6d6d6d;
+}
+
+@media only screen and (max-width: 768px){
+	.header-img{
+		margin-bottom: 20px;
+	}
+	.header-title h1{
+		font-size: 1.2rem;
+	}
+	.header-title h6{
+		font-size: 0.8rem;
+	}
+	.section{
+		padding: 2rem 1rem;
+	}
+}

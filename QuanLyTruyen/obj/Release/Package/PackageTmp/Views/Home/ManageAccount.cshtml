@@ -1,0 +1,107 @@
+﻿@model QuanLyTruyen.Models.member
+@{
+    ViewBag.Title = "Account - " + Model.username;
+}
+<div class="jumbotron">
+    <h3>Thông tin tài khoản: @Model.username</h3>
+    <div class=" = pull-right">        
+        @Html.ActionLink("Đăng xuất","Logout", "Home",null, new {@class = "btn btn-danger"})
+    </div>   
+</div>
+<div class="container">
+    <p><strong>ID: </strong><span>@Model.MemberID</span>x<span>@Session["ID"].ToString()</span></p>
+    <p><strong>Username:</strong> <span>@Model.username</span></p>
+    <p>
+        <strong>Loại tài khoản: </strong>
+        <span>
+            @switch (Model.accounttype)
+            {
+                case 1:<!--President-->
+                    <span>Moderator</span>
+                    break;
+
+                case 2: <!--God-->
+                    <span>Administrator</span>
+                    break;
+
+                default: <!--Normies-->
+                    <span>Cộng tác viên</span>
+                    break;
+            }
+        </span>
+    </p>
+    <style>
+        table tr td {
+            padding: 10px 10px 10px 10px;
+        }
+    </style>
+    <blockquote><h4>Đổi mật khẩu</h4></blockquote>
+   @using (Html.BeginForm("ManageAccount", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" value="@Model.MemberID" />
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <label for="oldPass">Mật khẩu cũ: </label>
+                    </td>
+                    <td>
+                        <input type="password" name="oldPassword" id="oldPass" size="35" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="newPass">Mật khẩu mới: </label>
+                    </td>
+                    <td>
+                        <input type="password" name="newPassword" id="newPass" size="35" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="oldPass">Nhập lại mật khẩu: </label>
+                    </td>
+                    <td>
+                        <input type="password" name="rePassword" id="rePass" size="35" />
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2"> <input type="submit" value="Đổi mật khẩu" class="btn btn-primary" /></td>
+                </tr>
+            </table>
+        </div>
+        if (ViewBag.FlagControl == 1)
+        {
+            <div class="alert alert-success" role="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                @ViewBag.AlertPassword
+            </div>
+        }
+        else if(ViewBag.FlagControl == 0)
+        {
+            <div class="alert alert-danger" role="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                @ViewBag.AlertPassword
+            </div>
+        }
+    }
+</div>
+<style>
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .closebtn:hover {
+            color: black;
+        }
+</style>
+
+

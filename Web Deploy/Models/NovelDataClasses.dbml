@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyTruyen" Class="NovelDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=NAM-Laptop;Initial Catalog=QuanLyTruyen;Persist Security Info=True;User ID=namking123" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyTruyenConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.member" Member="members">
+    <Type Name="member">
+      <Column Name="MemberID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="passcode" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="accounttype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.novel" Member="novels">
+    <Type Name="novel">
+      <Column Name="NovelID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NovelName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="CoverImage" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Synopsis" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NovelStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="novel_novelChapter" Member="novelChapters" ThisKey="NovelID" OtherKey="NovelID" Type="novelChapter" />
+      <Association Name="novel_noveltag" Member="noveltags" ThisKey="NovelID" OtherKey="NovelID" Type="noveltag" />
+    </Type>
+  </Table>
+  <Table Name="dbo.novelChapter" Member="novelChapters">
+    <Type Name="novelChapter">
+      <Column Name="ChapterID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ChapterName" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="ChapterLink" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NovelID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PrevID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NextID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="novelChapter_novelChapter" Member="novelChapters" ThisKey="ChapterID" OtherKey="NextID" Type="novelChapter" />
+      <Association Name="novelChapter_novelChapter1" Member="novelChapters1" ThisKey="ChapterID" OtherKey="PrevID" Type="novelChapter" />
+      <Association Name="novelChapter_novelChapter" Member="novelChapter1" ThisKey="NextID" OtherKey="ChapterID" Type="novelChapter" IsForeignKey="true" />
+      <Association Name="novel_novelChapter" Member="novel" ThisKey="NovelID" OtherKey="NovelID" Type="novel" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="novelChapter_novelChapter1" Member="novelChapter2" ThisKey="PrevID" OtherKey="ChapterID" Type="novelChapter" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.noveltag" Member="noveltags">
+    <Type Name="noveltag">
+      <Column Name="NovelID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TagID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="novel_noveltag" Member="novel" ThisKey="NovelID" OtherKey="NovelID" Type="novel" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="tag_noveltag" Member="tag" ThisKey="TagID" OtherKey="TagID" Type="tag" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tag" Member="tags">
+    <Type Name="tag">
+      <Column Name="TagID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TagName" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Association Name="tag_noveltag" Member="noveltags" ThisKey="TagID" OtherKey="TagID" Type="noveltag" />
+    </Type>
+  </Table>
+</Database>

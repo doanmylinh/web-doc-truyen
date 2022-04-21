@@ -1,0 +1,52 @@
+﻿@model List<QuanLyTruyen.Models.novel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<hr />
+<h2><i>Project của nhóm: </i></h2>
+<div class="row JustifyCenter">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-9">
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                    @item.NovelName
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p>
+                                <strong>Trạng thái:</strong>
+                                <br />
+                                @if (item.NovelStatus == 0)
+                                {
+                                    <text>Còn tiếp</text>
+                                }
+                                else
+                                {
+                                    <text>Đã xong</text>
+                                }
+                            </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p><img src="data:image;base64,@System.Convert.ToBase64String(QuanLyTruyen.Models.Methods.Instance.GetNovelImageArray(item))" style="max-width: 90px; max-height:135px" /></p>
+                        </div>
+                    </div>
+                    <p>
+                        <strong>
+                            Tóm tắt nội dung:
+                        </strong>
+                        <br />
+                        <span style="white-space:pre-line;">@QuanLyTruyen.Models.Methods.Instance.LimitString(@item.Synopsis, 100)</span>
+                        &ensp;
+                        @Html.ActionLink("Read more...", "Series", "Home", new { id = item.NovelID }, null)
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<hr />
+

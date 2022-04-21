@@ -1,0 +1,40 @@
+﻿@model QuanLyTruyen.Models.novelChapter
+@{ 
+    ViewBag.Title = "Chỉnh sửa truyện";
+}
+<style>
+    tr td {
+        padding: 8px;
+    }
+</style>
+<div align="center">
+   @using (Html.BeginForm("EditChapter", "Home", FormMethod.Post, new { @style = "min-width: 90%; min-height: 800px" }))
+    {
+        @Html.AntiForgeryToken();
+        <input type="hidden" value="@Model.ChapterID" name="id" />
+        <div class="panel panel-default" style="margin: 0 auto;">
+            <div class="panel panel-heading">
+                Chỉnh sửa nội dung
+            </div>
+            <div class="panel-body">
+                <table style="margin: 0 auto">
+                    <tr>
+                        <td><label for="chapterName">Chapter Name: &ensp;</label></td>
+                        <td><input type="text" id="name" name="chapterName" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="Files">Select file: &ensp;</label></td>
+                        <td><input type="file" name="content" id="files" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="data">Or fix it here: &ensp;</label></td>
+                        <td><textarea id="data" name="data" cols="30"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" align="center"><input type="submit" value="Edit" class="btn btn-default" style="width: 95%" /></td>
+                    </tr>
+                </table>
+            </div>                
+        </div>        
+    }
+</div>

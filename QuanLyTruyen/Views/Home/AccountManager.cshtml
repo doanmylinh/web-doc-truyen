@@ -1,0 +1,202 @@
+﻿@using QuanLyTruyen.Models
+
+@model List<member>
+@{
+    ViewBag.Title = "Quản lý tài khoản";
+}
+<style>
+    table {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    table, th, td {
+        border: 1px solid blue;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 8px;
+    }
+
+    .table-add, .table-add tr, .table-add tr th, .table-add tr td {
+        width: auto;
+        border: none;
+    }
+</style>
+<script>
+    var x = "123"
+    function showpass(id) {
+        var passfield = "1-" + id.toString();
+        var icon = "3-" + id.toString();
+        var x = document.getElementById(passfield);
+        var y = document.getElementById(icon);
+        if (x.type === "password") {
+            x.type = "text";
+            x.removeAttribute("readonly");
+            y.innerHTML = '<span class="glyphicon glyphicon-eye-open"></span>';
+        }
+        else {
+            x.type = "password";
+            x.setAttribute("readonly", "")
+            y.innerHTML = '<span class="glyphicon glyphicon-eye-close"></span>';
+        }
+    }
+
+</script>
+<h2>Quản trị tài khoản</h2>
+<div>
+    <
+   @using(Html.BeginForm("AddMember", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+       @Html.AntiForgeryToken()
+    <table class="table-add">
+        <tr>
+            <td><label for="newuser">Usernames</label></td>
+            <td><input type="text" id="newuser" name="newuser" size="35"/></td>
+        </tr>
+        <tr>
+            <td><label for="newuser">Password</label></td>
+            <td><input type="password" id="newpass" name="newpass" size="35"/></td>
+        </tr>
+        <tr>
+            <td><label for="newtype">Loại tài khoản:</label></td>
+            <td>
+                <select id="newtype" name="newtype">
+                    <option value="0">Tài khoản thành viên thường</option>
+                    <option value="1">Tài khoản quản lý (Moderator)</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Tạo mới..." /></td>
+        </tr>
+    </table>
+    }
+</div>
+
+<blockquote>
+    <h3>Tài khoản quản lý (Moderator)</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Loại</th>
+            <th colspan="3">Hành động</th>
+        </tr>
+       @foreach (var item in Model.Where(m => m.accounttype == 1))
+        {
+            <tr>
+               @using (Html.BeginForm("ForcePassword", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken();
+
+                    <td>@item.MemberID <input type="hidden" name="id" value="@item.MemberID" /></td>
+                    <td>@Methods.Instance.LimitString(item.username, 12)</td>
+                    <td>
+                        <input type="password" name="pass" value="@item.passcode" readonly id="1-@item.MemberID" />
+                        &ensp;
+                        <input type="checkbox" onclick="showpass(@item.MemberID)" id="2-@item.MemberID" />
+                        <label for="2-@item.MemberID" id="3-@item.MemberID"><span class="glyphicon glyphicon-eye-close"></span></label>
+                    </td>
+                    if (item.accounttype == 0)
+                    {
+                        <td>Member</td>
+                    }
+                    else if (item.accounttype == 1)
+                    {
+                        <td>Moderator</td>
+                    }
+                    <td>
+                        <input type="submit" value="Đổi mật khẩu" />
+                    </td>
+                }
+                <td>
+                    <button onclick="downgrade('@item.MemberID')" class="btn btn-primary"> Giáng cấp </button>
+                    <script>
+                        function downgrade(id) {
+                            if (confirm("Giáng cấp tài khoản này ? (ID = " + id + ")")) {
+                                window.location.href = '@Url.Action("DowngradeMember", "Home")/' + id;
+                            }
+                        }
+                    </script>
+                </td>
+                <td>
+                    <button onclick="deleteThis('@item.MemberID')" class="btn btn-danger">Xóa </button>
+                    <script>
+                        function deleteThis(id) {
+                            if (confirm("Xóa tài khoản này ? (ID = " + id + ")")) {
+                                window.location.href = '@Url.Action("DeleteMember", "Home")/' + id;
+                            }
+                        }
+                    </script>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <hr />
+    <h3>Tài khoản thành viên</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Loại</th>
+            <th colspan="3">Hành động</th>
+        </tr>
+       @foreach (var item in Model.Where(m => m.accounttype == 0))
+        {
+            <tr>
+
+               @using (Html.BeginForm("ForcePassword", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    Html.AntiForgeryToken();
+
+                    <td>@item.MemberID <input type="hidden" name="id" value="@item.MemberID" /></td>
+                    <td>@Methods.Instance.LimitString(item.username, 12)</td>
+                    <td>
+                        <input type="password" name="pass" value="@item.passcode" readonly id="1-@item.MemberID" />
+                        &ensp;
+                        <input type="checkbox" onclick="showpass(@item.MemberID)" id="2-@item.MemberID" />
+                        <label for="2-@item.MemberID" id="3-@item.MemberID"><span class="glyphicon glyphicon-eye-close"></span></label>
+                    </td>
+                    if (item.accounttype == 0)
+                    {
+                        <td>Member</td>
+                    }
+                    else if (item.accounttype == 1)
+                    {
+                        <td>Moderator</td>
+                    }
+                    <td>
+                        <input type="submit" value="Đổi mật khẩu" />
+                    </td>
+                }
+                <td>
+                    <button onclick="downgrade('@item.MemberID')" class="btn btn-primary"> Thăng cấp </button>
+                    <script>
+                        function downgrade(id) {
+                            if (confirm("Thăng cấp tài khoản này ? (ID = " + id + ")")) {
+                                window.location.href = '@Url.Action("UpgradeMember", "Home")/' + id;
+                            }
+                        }
+                    </script>
+                </td>
+                <td>
+                    <button onclick="deleteThis('@item.username')" class="btn btn-danger">Xóa</button>
+                    <script>
+                        function deleteThis(id) {
+                            if (confirm("Xóa tài khoản này (ID = " + id + ")")) {
+                                window.location.href = '@Url.Action("DeleteMember", "Home")/' + id;
+                            }
+                        }
+                    </script>
+                </td>
+            </tr>
+        }
+    </table>
+</blockquote>
+
